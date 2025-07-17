@@ -37,17 +37,15 @@ function applyitems(datas = [], datalist) {
     <div class="tasks">
          <span><input type="checkbox" class="pending" data-index=${index} name="Task${index}" id="Task${index}" ${
         item.completed ? "checked" : ""
-      }> <label class="taskLabel pending" for="Task${index}">${
-        item.text
-      }</label></checkbox> </span>
+      }> <label class="taskLabel ${
+        item.completed ? "completed" : "pending"
+      }" for="Task${index}">${item.text}</label> </span>
          <i class="fa-solid fa-trash accent " data-index=${index}></i>
       </div> `;
     })
     .join("");
   const deleteBtn = document.querySelectorAll(".fa-trash");
-  deleteBtn.forEach((del) => {
-    del.addEventListener("click", deleteData);
-  });
+  deleteBtn.forEach((del) => del.addEventListener("click", deleteData));
   const spans = document.querySelectorAll("span");
   spans.forEach((span) => span.addEventListener("click", toggleClass));
 }
@@ -55,6 +53,7 @@ function toggleStaus(e) {
   if (!e.target.matches("input")) return;
   const index = e.target.dataset.index;
   items[index].completed = !items[index].completed;
+  localStorage.setItem("Item", JSON.stringify(items));
   applyitems(items, itemList);
 }
 
