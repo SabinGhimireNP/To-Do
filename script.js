@@ -3,10 +3,12 @@ const form = document.querySelector(".form");
 const itemList = document.querySelector(".bottomWrapper");
 const clr = document.querySelector(".clearBtn");
 const tasks = document.querySelector(".AddTask");
+const items = JSON.parse(localStorage.getItem("Item")) || [];
 let text;
-let items = [];
 
 //Functions
+applyitems(items, itemList);
+
 function addItems(e) {
   e.preventDefault();
   const input = tasks.value;
@@ -18,11 +20,17 @@ function addItems(e) {
 
   items.push(data);
   applyitems(items, itemList);
+  localStorage.setItem("Item", JSON.stringify(items));
   //   console.log(data);
   this.reset();
 }
 
 function applyitems(datas = [], datalist) {
+  if (datas.length === 0) {
+    // Show "No Task" when there are no items
+    datalist.innerHTML = '<div class="none">No Task</div>';
+    return;
+  }
   datalist.innerHTML = datas
     .map((item, index) => {
       return `
@@ -47,6 +55,7 @@ function toggleStaus(e) {
   if (!e.target.matches("input")) return;
   const index = e.target.dataset.index;
   items[index].completed = !items[index].completed;
+  applyitems(items, itemList);
 }
 
 function toggleClass(e) {
@@ -62,13 +71,14 @@ function toggleClass(e) {
 }
 function clearALl() {
   items.splice(0, items.length);
-  //   localStorage.clear("Item");
+  localStorage.removeItem("Item");
   applyitems(items, itemList);
 }
 
 function deleteData(e) {
   const index = e.target.dataset.index;
   items.splice(index, 1);
+  localStorage.setItem("Item", JSON.stringify(items));
   applyitems(items, itemList);
 }
 //EventLisnteners
