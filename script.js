@@ -44,10 +44,6 @@ function applyitems(datas = [], datalist) {
       </div> `;
     })
     .join("");
-  const deleteBtn = document.querySelectorAll(".fa-trash");
-  deleteBtn.forEach((del) => del.addEventListener("click", deleteData));
-  const spans = document.querySelectorAll("span");
-  spans.forEach((span) => span.addEventListener("click", toggleClass));
 }
 function toggleStaus(e) {
   if (!e.target.matches("input")) return;
@@ -83,4 +79,13 @@ function deleteData(e) {
 //EventLisnteners
 form.addEventListener("submit", addItems);
 clr.addEventListener("click", clearALl);
-itemList.addEventListener("click", toggleStaus);
+//AI suggestion
+itemList.addEventListener("click", (e) => {
+  if (e.target.matches(".fa-trash")) {
+    deleteData(e);
+  } else if (e.target.matches("input[type='checkbox']")) {
+    toggleStaus(e);
+  } else if (e.target.matches("label")) {
+    toggleClass(e);
+  }
+});
