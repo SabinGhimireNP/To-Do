@@ -92,6 +92,7 @@ body {
   border: none;
   border-radius: 5px;
   margin-right: 1.5em;
+  cursor: pointer;
 }
 
 .bottomWrapper {
@@ -118,6 +119,9 @@ body {
   padding: 0em 0.3em;
 }
 
+.tasks span .pending {
+  text-decoration: none;
+}
 .tasks span .completed {
   text-decoration: line-through;
 }
