@@ -84,6 +84,18 @@ function filterItemsStyle(e) {
     option.classList.remove("active");
   });
   e.target.classList.add("active");
+  filterItem(e.target);
+}
+function filterItem(item) {
+  if (item.innerHTML == "All") {
+    applyitems(items, itemList);
+  } else if (item.innerHTML == "Pending") {
+    const filteredContent = items.filter((tasks) => !tasks.completed);
+    applyitems(filteredContent, itemList);
+  } else if (item.innerHTML == "Completed") {
+    const filteredContent = items.filter((tasks) => tasks.completed);
+    applyitems(filteredContent, itemList);
+  }
 }
 
 //EventLisnteners
