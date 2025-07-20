@@ -1,6 +1,8 @@
 //Varaibles
 const form = document.querySelector(".form");
 const itemList = document.querySelector(".bottomWrapper");
+const filterList = document.querySelector(".filterContent");
+const filterOptions = document.querySelectorAll(".filterContent li");
 const clr = document.querySelector(".clearBtn");
 const tasks = document.querySelector(".AddTask");
 const items = JSON.parse(localStorage.getItem("Item")) || [];
@@ -21,7 +23,6 @@ function addItems(e) {
   items.push(data);
   applyitems(items, itemList);
   localStorage.setItem("Item", JSON.stringify(items));
-  //   console.log(data);
   this.reset();
 }
 
@@ -76,8 +77,18 @@ function deleteData(e) {
   localStorage.setItem("Item", JSON.stringify(items));
   applyitems(items, itemList);
 }
+
+function filterItemsStyle(e) {
+  if (!e.target.matches("li")) return;
+  filterOptions.forEach((option) => {
+    option.classList.remove("active");
+  });
+  e.target.classList.add("active");
+}
+
 //EventLisnteners
 form.addEventListener("submit", addItems);
+filterList.addEventListener("click", filterItemsStyle);
 clr.addEventListener("click", clearALl);
 //AI suggestion
 itemList.addEventListener("click", (e) => {
