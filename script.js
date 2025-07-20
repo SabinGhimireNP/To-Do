@@ -65,7 +65,7 @@ function toggleClass(e) {
     e.target.classList.add("completed");
   }
 }
-function clearALl() {
+function clearAll() {
   items.splice(0, items.length);
   localStorage.removeItem("Item");
   applyitems(items, itemList);
@@ -89,7 +89,7 @@ function filterItemsStyle(e) {
 //EventLisnteners
 form.addEventListener("submit", addItems);
 filterList.addEventListener("click", filterItemsStyle);
-clr.addEventListener("click", clearALl);
+clr.addEventListener("click", clearAll);
 //AI suggestion
 itemList.addEventListener("click", (e) => {
   if (e.target.matches(".fa-trash")) {
