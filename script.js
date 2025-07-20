@@ -13,12 +13,11 @@ applyitems(items, itemList);
 
 function addItems(e) {
   e.preventDefault();
-  const input = tasks.value;
+  const input = tasks.value.trim();
   const data = {
-    text,
+    text: input,
     completed: false,
   };
-  data.text = input;
 
   items.push(data);
   applyitems(items, itemList);
@@ -51,7 +50,12 @@ function toggleStaus(e) {
   const index = e.target.dataset.index;
   items[index].completed = !items[index].completed;
   localStorage.setItem("Item", JSON.stringify(items));
-  applyitems(items, itemList);
+  const activeFilter = document.querySelector(".filterContent li.active");
+  if (activeFilter) {
+    filterItem(activeFilter);
+  } else {
+    applyitems(items, itemList);
+  }
 }
 
 function toggleClass(e) {
@@ -64,18 +68,35 @@ function toggleClass(e) {
     e.target.classList.remove("pending");
     e.target.classList.add("completed");
   }
+  localStorage.setItem("Item", JSON.stringify(items));
+  const activeFilter = document.querySelector(".filterContent li.active");
+  if (activeFilter) {
+    filterItem(activeFilter);
+  } else {
+    applyitems(items, itemList);
+  }
 }
 function clearAll() {
   items.splice(0, items.length);
   localStorage.removeItem("Item");
-  applyitems(items, itemList);
+  const activeFilter = document.querySelector(".filterContent li.active");
+  if (activeFilter) {
+    filterItem(activeFilter);
+  } else {
+    applyitems(items, itemList);
+  }
 }
 
 function deleteData(e) {
   const index = e.target.dataset.index;
   items.splice(index, 1);
   localStorage.setItem("Item", JSON.stringify(items));
-  applyitems(items, itemList);
+  const activeFilter = document.querySelector(".filterContent li.active");
+  if (activeFilter) {
+    filterItem(activeFilter);
+  } else {
+    applyitems(items, itemList);
+  }
 }
 
 function filterItemsStyle(e) {
