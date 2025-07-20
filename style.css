@@ -70,11 +70,19 @@ body {
 
   /* height: inherit; */
 }
-.filter .filterContent li.active {
+.filter .filterContent li {
   color: var(--accent);
   padding-bottom: 0.3em;
-  border-bottom: 2px solid var(--accent);
-  transition: border-color 0.3s ease, border-width 0.1s ease;
+  border-bottom: 2px solid rgb(0, 162, 255, 0);
+  transition: border-bottom 0.3s ease;
+}
+.filter .filterContent li.active {
+  color: var(--accent);
+  border-bottom: 2px solid rgb(0, 162, 255, 1);
+}
+.filter .filterContent li:hover {
+  color: var(--accent);
+  border-bottom: 2px solid rgb(0, 162, 255, 1);
 }
 
 .filter .filterContent li {

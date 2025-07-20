@@ -65,7 +65,7 @@ function toggleClass(e) {
     e.target.classList.add("completed");
   }
 }
-function clearALl() {
+function clearAll() {
   items.splice(0, items.length);
   localStorage.removeItem("Item");
   applyitems(items, itemList);
@@ -84,12 +84,24 @@ function filterItemsStyle(e) {
     option.classList.remove("active");
   });
   e.target.classList.add("active");
+  filterItem(e.target);
+}
+function filterItem(item) {
+  if (item.innerHTML == "All") {
+    applyitems(items, itemList);
+  } else if (item.innerHTML == "Pending") {
+    const filteredContent = items.filter((tasks) => !tasks.completed);
+    applyitems(filteredContent, itemList);
+  } else if (item.innerHTML == "Completed") {
+    const filteredContent = items.filter((tasks) => tasks.completed);
+    applyitems(filteredContent, itemList);
+  }
 }
 
 //EventLisnteners
 form.addEventListener("submit", addItems);
 filterList.addEventListener("click", filterItemsStyle);
-clr.addEventListener("click", clearALl);
+clr.addEventListener("click", clearAll);
 //AI suggestion
 itemList.addEventListener("click", (e) => {
   if (e.target.matches(".fa-trash")) {
