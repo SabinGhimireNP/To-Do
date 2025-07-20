@@ -32,7 +32,8 @@ function applyitems(datas = [], datalist) {
     return;
   }
   datalist.innerHTML = datas
-    .map((item, index) => {
+    .map((item) => {
+      const index = items.indexOf(item);
       return `
     <div class="tasks">
          <span><input type="checkbox" class="pending" data-index=${index} name="Task${index}" id="Task${index}" ${
@@ -116,6 +117,7 @@ function filterItem(item) {
   } else if (item.innerHTML == "Completed") {
     const filteredContent = items.filter((tasks) => tasks.completed);
     applyitems(filteredContent, itemList);
+    z;
   }
 }
 
